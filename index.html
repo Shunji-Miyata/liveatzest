@@ -7,113 +7,52 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body {
-  background: #0a0a0a;
-  color: #f0f0f0;
-  font-family: 'Noto Sans JP', sans-serif;
-  min-height: 100vh;
+body { background:#0a0a0a; color:#f0f0f0; font-family:'Noto Sans JP',sans-serif; min-height:100vh; }
+.header { text-align:center; padding:48px 24px 32px; border-bottom:1px solid #1e1e1e; }
+.header-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,14vw,120px); letter-spacing:0.08em; color:#fff; line-height:1; }
+.header-sub { font-size:12px; letter-spacing:0.3em; color:#666; margin-top:12px; text-transform:uppercase; }
+.flyer-section { max-width:800px; margin:0 auto; padding:48px 24px; border-bottom:1px solid #1a1a1a; }
+.flyer-box {
+  width:100%; aspect-ratio:210/297; max-height:560px;
+  border:1px dashed #2a2a2a;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:8px; color:#333; font-size:13px; letter-spacing:0.1em;
 }
-.header {
-  text-align: center;
-  padding: 48px 24px 32px;
-  border-bottom: 1px solid #1e1e1e;
+/* フライヤー画像を使う場合は .flyer-box を削除して <img> に差し替えてください */
+.section { max-width:800px; margin:0 auto; padding:48px 24px; border-bottom:1px solid #1a1a1a; }
+.section:last-of-type { border-bottom:none; }
+.section-label { display:inline-block; background:#e03020; color:#fff; font-size:13px; font-weight:700; letter-spacing:0.1em; padding:4px 12px; margin-bottom:24px; }
+.info-list { list-style:none; border-top:1px solid #222; }
+.info-item { display:grid; grid-template-columns:110px 1fr; border-bottom:1px solid #222; padding:18px 0; gap:16px; }
+.info-key { font-size:12px; letter-spacing:0.15em; color:#777; padding-top:2px; }
+.info-val { font-size:15px; color:#f0f0f0; line-height:1.8; }
+.info-val.tbd { color:#555; font-style:italic; }
+.drink-note { font-size:13px; color:#888; margin-top:4px; }
+.band-block { margin-bottom:28px; }
+.band-block:last-child { margin-bottom:0; }
+.band-name { font-size:12px; letter-spacing:0.2em; color:#e03020; margin-bottom:8px; text-transform:uppercase; }
+.band-members { font-size:15px; color:#f0f0f0; line-height:1.9; }
+.member { display:block; }
+.setlist-toggle {
+  width:100%; background:none; border:none; border-top:1px solid #222;
+  color:#f0f0f0; font-family:'Noto Sans JP',sans-serif;
+  font-size:14px; padding:18px 0; cursor:pointer;
+  display:flex; align-items:center; gap:12px; text-align:left;
 }
-.header-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(56px, 14vw, 120px);
-  letter-spacing: 0.08em;
-  color: #fff;
-  line-height: 1;
+.setlist-toggle:last-of-type { border-bottom:1px solid #222; }
+.toggle-icon {
+  width:22px; height:22px; border:1px solid #444; border-radius:2px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:#e03020; flex-shrink:0; line-height:1;
 }
-.header-sub {
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: #666;
-  margin-top: 12px;
-  text-transform: uppercase;
-}
-.section {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 48px 24px;
-  border-bottom: 1px solid #1a1a1a;
-}
-.section:last-of-type { border-bottom: none; }
-.section-label {
-  display: inline-block;
-  background: #e03020;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 4px 12px;
-  margin-bottom: 24px;
-}
-.info-list { list-style: none; border-top: 1px solid #222; }
-.info-item {
-  display: grid;
-  grid-template-columns: 110px 1fr;
-  border-bottom: 1px solid #222;
-  padding: 18px 0;
-  gap: 16px;
-}
-.info-key {
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  color: #777;
-  padding-top: 2px;
-}
-.info-val {
-  font-size: 15px;
-  color: #f0f0f0;
-  line-height: 1.8;
-}
-.info-val.tbd { color: #555; font-style: italic; }
-.drink-note {
-  font-size: 13px;
-  color: #888;
-  line-height: 1.8;
-  margin-top: 4px;
-}
-.band-block { margin-bottom: 28px; }
-.band-block:last-child { margin-bottom: 0; }
-.band-name {
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  color: #e03020;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-}
-.band-members {
-  font-size: 15px;
-  color: #f0f0f0;
-  line-height: 1.9;
-}
-.member { display: block; }
-.setlist-note {
-  font-size: 14px;
-  color: #888;
-  line-height: 1.8;
-}
-.setlist-link {
-  display: inline-block;
-  margin-top: 16px;
-  color: #e03020;
-  font-size: 13px;
-  border: 1px solid #e03020;
-  padding: 8px 20px;
-  text-decoration: none;
-  letter-spacing: 0.1em;
-}
-.setlist-link:hover { background: #e03020; color: #fff; }
-.footer {
-  border-top: 1px solid #1a1a1a;
-  padding: 32px 24px;
-  text-align: center;
-  font-size: 11px;
-  color: #333;
-  letter-spacing: 0.15em;
-}
+.setlist-content { overflow:hidden; max-height:0; transition:max-height 0.3s ease; }
+.setlist-content.open { max-height:400px; }
+.setlist-ol { list-style:none; padding:0 0 16px 34px; }
+.setlist-ol li { padding:10px 0; border-bottom:1px solid #1a1a1a; font-size:14px; color:#888; display:flex; align-items:center; gap:12px; }
+.setlist-ol li:last-child { border-bottom:none; }
+.track-num { font-size:11px; color:#444; width:20px; flex-shrink:0; }
+.track-name { color:#555; font-style:italic; }
+.footer { border-top:1px solid #1a1a1a; padding:32px 24px; text-align:center; font-size:11px; color:#333; letter-spacing:0.15em; }
 </style>
 </head>
 <body>
@@ -123,16 +62,20 @@ body {
   <p class="header-sub">Company Live Event 2026</p>
 </header>
 
+<!-- フライヤー（画像が決まったら下の div を <img src="flyer.jpg" style="width:100%;display:block;"> に差し替えてください） -->
+<section class="flyer-section">
+  <div class="flyer-box">
+    <span>フライヤー画像がここに入ります</span>
+  </div>
+</section>
+
 <!-- 公演概要 -->
 <section class="section">
   <p class="section-label">公演概要</p>
   <ul class="info-list">
     <li class="info-item">
       <span class="info-key">日時</span>
-      <span class="info-val">
-        2026年10月9日（金）<br>
-        OPEN 19:00 / START 19:30
-      </span>
+      <span class="info-val">2026年10月9日（金）<br>OPEN 19:00 / START 19:30</span>
     </li>
     <li class="info-item">
       <span class="info-key">会場</span>
@@ -140,10 +83,7 @@ body {
     </li>
     <li class="info-item">
       <span class="info-key">参加費</span>
-      <span class="info-val">
-        無料<br>
-        <span class="drink-note">※ドリンク代 700円のみいただきます</span>
-      </span>
+      <span class="info-val">無料<br><span class="drink-note">※ドリンク代 700円のみいただきます</span></span>
     </li>
   </ul>
 </section>
@@ -176,14 +116,51 @@ body {
 <!-- セットリスト -->
 <section class="section">
   <p class="section-label">セットリスト</p>
-  <p class="setlist-note">ネタバレを避けたい方はご注意ください。<br>以下のリンクからご確認いただけます。</p>
-  <!-- セットリストのURLが決まったら href="#" を実際のURLに変更してください -->
-  <a href="#" class="setlist-link">セットリストを見る</a>
+  <p style="font-size:13px;color:#666;margin-bottom:16px;">ネタバレにご注意ください</p>
+
+  <div>
+    <button class="setlist-toggle" onclick="toggle(this)">
+      <span class="toggle-icon">＋</span>
+      <span>Band A のセットリストを見る</span>
+    </button>
+    <div class="setlist-content">
+      <ol class="setlist-ol">
+        <li><span class="track-num">1</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">2</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">3</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">4</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">5</span><span class="track-name">曲名未定</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div>
+    <button class="setlist-toggle" onclick="toggle(this)">
+      <span class="toggle-icon">＋</span>
+      <span>Band B のセットリストを見る</span>
+    </button>
+    <div class="setlist-content">
+      <ol class="setlist-ol">
+        <li><span class="track-num">1</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">2</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">3</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">4</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">5</span><span class="track-name">曲名未定</span></li>
+      </ol>
+    </div>
+  </div>
 </section>
 
-<footer class="footer">
-  © 2026 ABC LIVE
-</footer>
+<footer class="footer">© 2026 ABC LIVE</footer>
+
+<script>
+function toggle(btn) {
+  const content = btn.nextElementSibling;
+  const icon = btn.querySelector('.toggle-icon');
+  const isOpen = content.classList.toggle('open');
+  icon.textContent = isOpen ? '－' : '＋';
+}
+</script>
 
 </body>
 </html>
