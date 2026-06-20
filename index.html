@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABC LIVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0a0a0a;
+  color: #f0f0f0;
+  font-family: 'Noto Sans JP', sans-serif;
+  min-height: 100vh;
+}
+.header {
+  text-align: center;
+  padding: 48px 24px 32px;
+  border-bottom: 1px solid #1e1e1e;
+}
+.header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 14vw, 120px);
+  letter-spacing: 0.08em;
+  color: #fff;
+  line-height: 1;
+}
+.header-sub {
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: #666;
+  margin-top: 12px;
+  text-transform: uppercase;
+}
+.section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  border-bottom: 1px solid #1a1a1a;
+}
+.section:last-of-type { border-bottom: none; }
+.section-label {
+  display: inline-block;
+  background: #e03020;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  margin-bottom: 24px;
+}
+.info-list { list-style: none; border-top: 1px solid #222; }
+.info-item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  border-bottom: 1px solid #222;
+  padding: 18px 0;
+  gap: 16px;
+}
+.info-key {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: #777;
+  padding-top: 2px;
+}
+.info-val {
+  font-size: 15px;
+  color: #f0f0f0;
+  line-height: 1.8;
+}
+.info-val.tbd { color: #555; font-style: italic; }
+.drink-note {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.8;
+  margin-top: 4px;
+}
+.band-block { margin-bottom: 28px; }
+.band-block:last-child { margin-bottom: 0; }
+.band-name {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: #e03020;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.band-members {
+  font-size: 15px;
+  color: #f0f0f0;
+  line-height: 1.9;
+}
+.member { display: block; }
+.setlist-note {
+  font-size: 14px;
+  color: #888;
+  line-height: 1.8;
+}
+.setlist-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: #e03020;
+  font-size: 13px;
+  border: 1px solid #e03020;
+  padding: 8px 20px;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.setlist-link:hover { background: #e03020; color: #fff; }
+.footer {
+  border-top: 1px solid #1a1a1a;
+  padding: 32px 24px;
+  text-align: center;
+  font-size: 11px;
+  color: #333;
+  letter-spacing: 0.15em;
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1 class="header-title">ABC LIVE</h1>
+  <p class="header-sub">Company Live Event 2026</p>
+</header>
+
+<!-- 公演概要 -->
+<section class="section">
+  <p class="section-label">公演概要</p>
+  <ul class="info-list">
+    <li class="info-item">
+      <span class="info-key">日時</span>
+      <span class="info-val">
+        2026年10月9日（金）<br>
+        OPEN 19:00 / START 19:30
+      </span>
+    </li>
+    <li class="info-item">
+      <span class="info-key">会場</span>
+      <span class="info-val tbd">未定</span>
+    </li>
+    <li class="info-item">
+      <span class="info-key">参加費</span>
+      <span class="info-val">
+        無料<br>
+        <span class="drink-note">※ドリンク代 700円のみいただきます</span>
+      </span>
+    </li>
+  </ul>
+</section>
+
+<!-- 出演 -->
+<section class="section">
+  <p class="section-label">出演</p>
+  <div class="band-block">
+    <p class="band-name">Band A</p>
+    <div class="band-members">
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+    </div>
+  </div>
+  <div class="band-block">
+    <p class="band-name">Band B</p>
+    <div class="band-members">
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+    </div>
+  </div>
+</section>
+
+<!-- セットリスト -->
+<section class="section">
+  <p class="section-label">セットリスト</p>
+  <p class="setlist-note">ネタバレを避けたい方はご注意ください。<br>以下のリンクからご確認いただけます。</p>
+  <!-- セットリストのURLが決まったら href="#" を実際のURLに変更してください -->
+  <a href="#" class="setlist-link">セットリストを見る</a>
+</section>
+
+<footer class="footer">
+  © 2026 ABC LIVE
+</footer>
+
+</body>
+</html>
