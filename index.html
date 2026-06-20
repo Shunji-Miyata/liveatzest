@@ -11,6 +11,7 @@ body { background:#0a0a0a; color:#f0f0f0; font-family:'Noto Sans JP',sans-serif;
 .header { text-align:center; padding:48px 24px 32px; border-bottom:1px solid #1e1e1e; }
 .header-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,14vw,120px); letter-spacing:0.08em; color:#fff; line-height:1; }
 .header-sub { font-size:12px; letter-spacing:0.3em; color:#666; margin-top:12px; text-transform:uppercase; }
+
 .flyer-section { max-width:800px; margin:0 auto; padding:48px 24px; border-bottom:1px solid #1a1a1a; }
 .flyer-box {
   width:100%; aspect-ratio:210/297; max-height:560px;
@@ -18,21 +19,46 @@ body { background:#0a0a0a; color:#f0f0f0; font-family:'Noto Sans JP',sans-serif;
   display:flex; align-items:center; justify-content:center;
   flex-direction:column; gap:8px; color:#333; font-size:13px; letter-spacing:0.1em;
 }
-/* フライヤー画像を使う場合は .flyer-box を削除して <img> に差し替えてください */
+
 .section { max-width:800px; margin:0 auto; padding:48px 24px; border-bottom:1px solid #1a1a1a; }
-.section:last-of-type { border-bottom:none; }
 .section-label { display:inline-block; background:#e03020; color:#fff; font-size:13px; font-weight:700; letter-spacing:0.1em; padding:4px 12px; margin-bottom:24px; }
+
 .info-list { list-style:none; border-top:1px solid #222; }
 .info-item { display:grid; grid-template-columns:110px 1fr; border-bottom:1px solid #222; padding:18px 0; gap:16px; }
 .info-key { font-size:12px; letter-spacing:0.15em; color:#777; padding-top:2px; }
 .info-val { font-size:15px; color:#f0f0f0; line-height:1.8; }
 .info-val.tbd { color:#555; font-style:italic; }
-.drink-note { font-size:13px; color:#888; margin-top:4px; }
+
+.band-schedule { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+.band-time { font-size:13px; color:#999; }
+.band-time span { color:#e03020; font-weight:700; margin-right:6px; }
+
+.ticket-detail { display:flex; flex-direction:column; gap:4px; }
+.ticket-row { font-size:15px; color:#f0f0f0; }
+.ticket-row .label { color:#777; font-size:12px; letter-spacing:0.1em; display:inline-block; width:90px; }
+.ticket-note { font-size:13px; color:#888; margin-top:8px; line-height:1.8; }
+
+.venue-links { margin-top:12px; display:flex; flex-direction:column; gap:8px; }
+.venue-link { font-size:13px; color:#e03020; text-decoration:none; letter-spacing:0.05em; }
+.venue-link:hover { text-decoration:underline; }
+.venue-link.tbd { color:#444; pointer-events:none; font-style:italic; }
+
+.photo-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; }
+.photo-box {
+  aspect-ratio:4/3;
+  border:1px dashed #2a2a2a;
+  display:flex; align-items:center; justify-content:center;
+  color:#333; font-size:12px; letter-spacing:0.05em;
+}
+
+.notice-box { font-size:14px; color:#555; font-style:italic; line-height:1.8; }
+
 .band-block { margin-bottom:28px; }
 .band-block:last-child { margin-bottom:0; }
 .band-name { font-size:12px; letter-spacing:0.2em; color:#e03020; margin-bottom:8px; text-transform:uppercase; }
 .band-members { font-size:15px; color:#f0f0f0; line-height:1.9; }
 .member { display:block; }
+
 .setlist-toggle {
   width:100%; background:none; border:none; border-top:1px solid #222;
   color:#f0f0f0; font-family:'Noto Sans JP',sans-serif;
@@ -48,10 +74,11 @@ body { background:#0a0a0a; color:#f0f0f0; font-family:'Noto Sans JP',sans-serif;
 .setlist-content { overflow:hidden; max-height:0; transition:max-height 0.3s ease; }
 .setlist-content.open { max-height:400px; }
 .setlist-ol { list-style:none; padding:0 0 16px 34px; }
-.setlist-ol li { padding:10px 0; border-bottom:1px solid #1a1a1a; font-size:14px; color:#888; display:flex; align-items:center; gap:12px; }
+.setlist-ol li { padding:10px 0; border-bottom:1px solid #1a1a1a; font-size:14px; display:flex; align-items:center; gap:12px; }
 .setlist-ol li:last-child { border-bottom:none; }
 .track-num { font-size:11px; color:#444; width:20px; flex-shrink:0; }
 .track-name { color:#555; font-style:italic; }
+
 .footer { border-top:1px solid #1a1a1a; padding:32px 24px; text-align:center; font-size:11px; color:#333; letter-spacing:0.15em; }
 </style>
 </head>
@@ -62,7 +89,7 @@ body { background:#0a0a0a; color:#f0f0f0; font-family:'Noto Sans JP',sans-serif;
   <p class="header-sub">Company Live Event 2026</p>
 </header>
 
-<!-- フライヤー（画像が決まったら下の div を <img src="flyer.jpg" style="width:100%;display:block;"> に差し替えてください） -->
+<!-- フライヤー -->
 <section class="flyer-section">
   <div class="flyer-box">
     <span>フライヤー画像がここに入ります</span>
@@ -73,24 +100,58 @@ body { background:#0a0a0a; color:#f0f0f0; font-family:'Noto Sans JP',sans-serif;
 <section class="section">
   <p class="section-label">公演概要</p>
   <ul class="info-list">
+
     <li class="info-item">
       <span class="info-key">日時</span>
-      <span class="info-val">2026年10月9日（金）<br>OPEN 19:00 / START 19:30</span>
+      <span class="info-val">
+        2026年10月9日（金）<br>
+        OPEN 19:00
+        <div class="band-schedule">
+          <span class="band-time"><span>Band A</span>19:30 START</span>
+          <span class="band-time"><span>Band B</span>20:30 START</span>
+        </div>
+      </span>
     </li>
+
     <li class="info-item">
       <span class="info-key">会場</span>
-      <span class="info-val tbd">未定</span>
+      <span class="info-val">
+        〒101-0021 東京都千代田区外神田3-2-14 B1F
+        <div class="venue-links">
+          <a href="#" class="venue-link tbd">Google マップ（近日追加）</a>
+          <a href="https://akihabarazest.com/" class="venue-link" target="_blank">会場公式サイト →</a>
+        </div>
+        <div class="photo-row">
+          <div class="photo-box">入口写真①</div>
+          <div class="photo-box">入口写真②</div>
+        </div>
+      </span>
     </li>
+
     <li class="info-item">
       <span class="info-key">参加費</span>
-      <span class="info-val">無料<br><span class="drink-note">※ドリンク代 700円のみいただきます</span></span>
+      <span class="info-val">
+        <div class="ticket-detail">
+          <div class="ticket-row"><span class="label">チケット代</span>無料</div>
+          <div class="ticket-row"><span class="label">ドリンク代</span>700円</div>
+        </div>
+        <p class="ticket-note">入場時にドリンクチケットと交換し、会場で飲み物と交換していただけます。</p>
+      </span>
     </li>
+
+    <li class="info-item">
+      <span class="info-key">注意事項</span>
+      <span class="info-val">
+        <p class="notice-box">内容を準備中です</p>
+      </span>
+    </li>
+
   </ul>
 </section>
 
-<!-- 出演 -->
+<!-- 出演者 -->
 <section class="section">
-  <p class="section-label">出演</p>
+  <p class="section-label">出演者</p>
   <div class="band-block">
     <p class="band-name">Band A</p>
     <div class="band-members">
@@ -116,7 +177,7 @@ body { background:#0a0a0a; color:#f0f0f0; font-family:'Noto Sans JP',sans-serif;
 <!-- セットリスト -->
 <section class="section">
   <p class="section-label">セットリスト</p>
-  <p style="font-size:13px;color:#666;margin-bottom:16px;">ネタバレにご注意ください</p>
+  <p style="font-size:13px;color:#666;margin-bottom:16px;">事前に知りたい方はこちらをご覧ください</p>
 
   <div>
     <button class="setlist-toggle" onclick="toggle(this)">
