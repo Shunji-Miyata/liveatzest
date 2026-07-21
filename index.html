@@ -1,167 +1,227 @@
-import React, { useState } from "react";
-import { CalendarDays, Clock3, MapPin, Ticket, ExternalLink, ChevronDown, Music2, Users, GlassWater, AlertCircle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABC LIVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0a0a0a; color:#f0f0f0; font-family:'Noto Sans JP',sans-serif; min-height:100vh; }
+.header { text-align:center; padding:48px 24px 32px; border-bottom:1px solid #1e1e1e; }
+.header-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,14vw,120px); letter-spacing:0.08em; color:#fff; line-height:1; }
+.header-sub { font-size:13px; letter-spacing:0.3em; color:#666; margin-top:12px; text-transform:uppercase; }
 
-const bands = [
-  {
-    name: "Band A",
-    start: "19:30",
-    members: ["XX / Vocal", "XX / Guitar", "XX / Guitar", "XX / Bass", "XX / Drums"],
-    tracks: ["曲名未定", "曲名未定", "曲名未定", "曲名未定", "曲名未定"],
-  },
-  {
-    name: "Band B",
-    start: "20:30",
-    members: ["XX / Vocal", "XX / Guitar", "XX / Keyboard", "XX / Bass", "XX / Drums"],
-    tracks: ["曲名未定", "曲名未定", "曲名未定", "曲名未定", "曲名未定"],
-  },
-];
+.flyer-section { max-width:800px; margin:0 auto; padding:48px 24px; border-bottom:1px solid #1a1a1a; }
+.flyer-box {
+  width:100%; aspect-ratio:210/297; max-height:560px;
+  border:1px dashed #2a2a2a;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:8px; color:#333; font-size:13px; letter-spacing:0.1em;
+}
 
-function Setlist({ band }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border-t border-white/10 last:border-b">
-      <button
-        type="button"
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-        className="flex w-full items-center justify-between py-5 text-left transition hover:text-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
-      >
-        <span className="flex items-center gap-3 font-bold">
-          <span className="grid h-8 w-8 place-items-center rounded-full border border-white/15 text-red-500">
-            <Music2 size={15} />
-          </span>
-          {band.name} のセットリスト
-        </span>
-        <ChevronDown size={20} className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
-      </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.ol
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden"
-          >
-            <div className="pb-5 pl-11">
-              {band.tracks.map((track, index) => (
-                <li key={index} className="flex gap-4 border-b border-white/[0.06] py-3 text-sm last:border-0">
-                  <span className="w-5 font-mono text-white/30">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="italic text-white/45">{track}</span>
-                </li>
-              ))}
-            </div>
-          </motion.ol>
-        )}
-      </AnimatePresence>
+.section { max-width:800px; margin:0 auto; padding:48px 24px; border-bottom:1px solid #1a1a1a; }
+.section-label { display:inline-block; background:#e03020; color:#fff; font-size:17px; font-weight:700; letter-spacing:0.1em; padding:4px 12px; margin-bottom:24px; }
+
+.info-list { list-style:none; border-top:1px solid #222; }
+.info-item { display:grid; grid-template-columns:110px 1fr; border-bottom:1px solid #222; padding:18px 0; gap:16px; }
+.info-key { font-size:16px; letter-spacing:0.15em; color:#777; padding-top:2px; }
+.info-val { font-size:16px; color:#f0f0f0; line-height:1.8; }
+.info-val.tbd { color:#555; font-style:italic; }
+
+.band-schedule { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+.band-time { font-size:14px; color:#999; }
+.band-time span { color:#e03020; font-weight:700; margin-right:6px; }
+
+.ticket-detail { display:flex; flex-direction:column; gap:4px; }
+.ticket-row { font-size:16px; color:#f0f0f0; }
+.ticket-row .label { color:#777; font-size:13px; letter-spacing:0.1em; display:inline-block; width:90px; }
+.ticket-note { font-size:14px; color:#888; margin-top:8px; line-height:1.8; }
+
+.venue-links { margin-top:12px; display:flex; flex-direction:column; gap:8px; }
+.venue-link { font-size:14px; color:#e03020; text-decoration:none; letter-spacing:0.05em; }
+.venue-link:hover { text-decoration:underline; }
+.venue-link.tbd { color:#444; pointer-events:none; font-style:italic; }
+
+.photo-row { display:grid; grid-template-columns:1fr; gap:12px; margin-top:20px; }
+.photo-box {
+  aspect-ratio:4/3;
+  border:1px dashed #2a2a2a;
+  display:flex; align-items:center; justify-content:center;
+  color:#333; font-size:13px; letter-spacing:0.05em;
+}
+
+.notice-box { font-size:15px; color:#555; font-style:italic; line-height:1.8; }
+
+.band-block { margin-bottom:28px; }
+.band-block:last-child { margin-bottom:0; }
+.band-name { font-size:13px; letter-spacing:0.2em; color:#e03020; margin-bottom:8px; text-transform:uppercase; }
+.band-members { font-size:16px; color:#f0f0f0; line-height:1.9; }
+.member { display:block; }
+
+.setlist-toggle {
+  width:100%; background:none; border:none; border-top:1px solid #222;
+  color:#f0f0f0; font-family:'Noto Sans JP',sans-serif;
+  font-size:15px; padding:18px 0; cursor:pointer;
+  display:flex; align-items:center; gap:12px; text-align:left;
+}
+.setlist-toggle:last-of-type { border-bottom:1px solid #222; }
+.toggle-icon {
+  width:22px; height:22px; border:1px solid #444; border-radius:2px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:#e03020; flex-shrink:0; line-height:1;
+}
+.setlist-content { overflow:hidden; max-height:0; transition:max-height 0.3s ease; }
+.setlist-content.open { max-height:400px; }
+.setlist-ol { list-style:none; padding:0 0 16px 34px; }
+.setlist-ol li { padding:10px 0; border-bottom:1px solid #1a1a1a; font-size:15px; display:flex; align-items:center; gap:12px; }
+.setlist-ol li:last-child { border-bottom:none; }
+.track-num { font-size:12px; color:#444; width:20px; flex-shrink:0; }
+.track-name { color:#555; font-style:italic; }
+
+.footer { border-top:1px solid #1a1a1a; padding:32px 24px; text-align:center; font-size:12px; color:#333; letter-spacing:0.15em; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1 class="header-title">ABC LIVE</h1>
+  <p class="header-sub">Company Live Event 2026</p>
+</header>
+
+<!-- フライヤー -->
+<section class="flyer-section">
+  <div class="flyer-box">
+    <span>フライヤー画像がここに入ります</span>
+  </div>
+</section>
+
+<!-- 公演概要 -->
+<section class="section">
+  <p class="section-label">公演概要</p>
+  <ul class="info-list">
+
+    <li class="info-item">
+      <span class="info-key">日時</span>
+      <span class="info-val">
+        2026年10月9日（金）<br>
+        開場 19:00
+        <div class="band-schedule">
+          <span class="band-time"><span>Band A</span>19:30開始</span>
+          <span class="band-time"><span>Band B</span>20:30開始</span>
+        </div>
+      </span>
+    </li>
+
+    <li class="info-item">
+      <span class="info-key">会場</span>
+      <span class="info-val">
+        〒101-0021 東京都千代田区外神田3-2-14 B1F
+        <div class="venue-links">
+          <a href="#" class="venue-link tbd">Google マップ（近日追加）</a>
+          <a href="https://akihabarazest.com/" class="venue-link" target="_blank">会場公式サイト →</a>
+        </div>
+        <div class="photo-row">
+          <div class="photo-box">入口写真①</div>
+          <div class="photo-box">入口写真②</div>
+        </div>
+      </span>
+    </li>
+
+    <li class="info-item">
+      <span class="info-key">参加費</span>
+      <span class="info-val">
+        <div class="ticket-detail">
+          <div class="ticket-row"><span class="label">チケット代</span>無料</div>
+          <div class="ticket-row"><span class="label">ドリンク代</span>700円</div>
+        </div>
+        <p class="ticket-note">入場時にドリンクチケットと交換し、会場で飲み物と交換していただけます。</p>
+      </span>
+    </li>
+
+    <li class="info-item">
+      <span class="info-key">注意事項</span>
+      <span class="info-val">
+        <p class="notice-box">内容を準備中です</p>
+      </span>
+    </li>
+
+  </ul>
+</section>
+
+<!-- 出演者 -->
+<section class="section">
+  <p class="section-label">出演者</p>
+  <div class="band-block">
+    <p class="band-name">Band A</p>
+    <div class="band-members">
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
     </div>
-  );
-}
-
-function SectionTitle({ eyebrow, children }) {
-  return (
-    <div className="mb-8">
-      <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-red-500">{eyebrow}</p>
-      <h2 className="text-3xl font-black tracking-tight sm:text-4xl">{children}</h2>
+  </div>
+  <div class="band-block">
+    <p class="band-name">Band B</p>
+    <div class="band-members">
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
+      <span class="member">XX</span>
     </div>
-  );
+  </div>
+</section>
+
+<!-- セットリスト -->
+<section class="section">
+  <p class="section-label">セットリスト</p>
+  <p style="font-size:14px;color:#666;margin-bottom:16px;">事前に知りたい方はこちらをご覧ください</p>
+
+  <div>
+    <button class="setlist-toggle" onclick="toggle(this)">
+      <span class="toggle-icon">＋</span>
+      <span>Band A のセットリストを見る</span>
+    </button>
+    <div class="setlist-content">
+      <ol class="setlist-ol">
+        <li><span class="track-num">1</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">2</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">3</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">4</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">5</span><span class="track-name">曲名未定</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div>
+    <button class="setlist-toggle" onclick="toggle(this)">
+      <span class="toggle-icon">＋</span>
+      <span>Band B のセットリストを見る</span>
+    </button>
+    <div class="setlist-content">
+      <ol class="setlist-ol">
+        <li><span class="track-num">1</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">2</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">3</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">4</span><span class="track-name">曲名未定</span></li>
+        <li><span class="track-num">5</span><span class="track-name">曲名未定</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">© 2026 ABC LIVE</footer>
+
+<script>
+function toggle(btn) {
+  const content = btn.nextElementSibling;
+  const icon = btn.querySelector('.toggle-icon');
+  const isOpen = content.classList.toggle('open');
+  icon.textContent = isOpen ? '－' : '＋';
 }
+</script>
 
-export default function App() {
-  return (
-    <main className="min-h-screen overflow-hidden bg-[#090909] font-sans text-zinc-100 selection:bg-red-600">
-      <div className="pointer-events-none fixed inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.035)_1px,transparent_1px)] [background-size:48px_48px]" />
-
-      <header className="relative flex min-h-[76vh] items-end border-b border-white/10 px-5 pb-12 pt-24 sm:px-10 lg:px-16">
-        <div className="absolute right-[-10%] top-[-10%] h-80 w-80 rounded-full bg-red-600/20 blur-[100px] sm:h-[520px] sm:w-[520px]" />
-        <div className="relative mx-auto w-full max-w-6xl">
-          <div className="mb-6 flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-[0.24em] text-white/55">
-            <span className="rounded-full border border-red-500/50 bg-red-500/10 px-4 py-2 text-red-400">Company Live Event</span>
-            <span>2026.10.09 FRI</span>
-            <span>AKIHABARA ZEST</span>
-          </div>
-          <h1 className="max-w-5xl text-[clamp(72px,18vw,210px)] font-black uppercase leading-[0.76] tracking-[-0.075em]">
-            ABC<br /><span className="text-red-600">LIVE</span>
-          </h1>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <a href="#info" className="rounded-full bg-red-600 px-6 py-3 text-sm font-bold transition hover:bg-red-500">公演情報を見る</a>
-            <a href="#artists" className="rounded-full border border-white/20 px-6 py-3 text-sm font-bold transition hover:border-white/50 hover:bg-white/5">出演者を見る</a>
-          </div>
-        </div>
-      </header>
-
-      <section className="relative mx-auto max-w-6xl px-5 py-20 sm:px-10 lg:px-16" id="info">
-        <SectionTitle eyebrow="Event Information">公演概要</SectionTitle>
-        <div className="grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 md:grid-cols-2">
-          <article className="bg-[#0d0d0d] p-7 sm:p-9">
-            <CalendarDays className="mb-10 text-red-500" size={24} />
-            <p className="text-sm text-white/45">開催日</p>
-            <p className="mt-2 text-2xl font-black">2026年10月9日（金）</p>
-          </article>
-          <article className="bg-[#0d0d0d] p-7 sm:p-9">
-            <Clock3 className="mb-10 text-red-500" size={24} />
-            <p className="text-sm text-white/45">タイムテーブル</p>
-            <p className="mt-2 text-2xl font-black">OPEN 19:00</p>
-            <div className="mt-5 space-y-2 font-mono text-sm">
-              {bands.map((band) => <p key={band.name}><span className="mr-3 text-red-500">{band.start}</span>{band.name}</p>)}
-            </div>
-          </article>
-          <article className="bg-[#0d0d0d] p-7 sm:p-9">
-            <MapPin className="mb-10 text-red-500" size={24} />
-            <p className="text-sm text-white/45">会場</p>
-            <p className="mt-2 text-2xl font-black">秋葉原ZEST</p>
-            <p className="mt-3 text-sm leading-7 text-white/55">〒101-0021<br />東京都千代田区外神田3-2-14 B1F</p>
-            <div className="mt-6 flex flex-wrap gap-4 text-sm font-bold text-red-400">
-              https://www.google.com/maps/search/?api=1&query=%E7%A7%8B%E8%91%89%E5%8E%9FZEST
-              <a className="flex items-center gap-1 hover:text-red-300" href="https://akihabarazest.com/" target="_blank" rel="noreferrer">公式サイト <ExternalLink size={14} /></a>
-            </div>
-          </article>
-          <article className="bg-[#0d0d0d] p-7 sm:p-9">
-            <Ticket className="mb-10 text-red-500" size={24} />
-            <p className="text-sm text-white/45">参加費</p>
-            <p className="mt-2 text-2xl font-black">入場無料</p>
-            <div className="mt-5 flex items-center gap-3 rounded-2xl bg-white/5 p-4 text-sm">
-              <GlassWater size={18} className="text-red-500" />
-              <span>入場時にドリンク代 700円</span>
-            </div>
-          </article>
-        </div>
-        <div className="mt-5 flex gap-3 rounded-2xl border border-amber-400/15 bg-amber-400/[0.06] p-5 text-sm leading-6 text-white/60">
-          <AlertCircle className="mt-0.5 shrink-0 text-amber-400" size={18} />
-          <p>入場時にドリンクチケットをお受け取りください。注意事項は決まり次第、このページでお知らせします。</p>
-        </div>
-      </section>
-
-      <section className="relative border-y border-white/10 bg-white/[0.025]" id="artists">
-        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-10 lg:px-16">
-          <SectionTitle eyebrow="Artists">出演者</SectionTitle>
-          <div className="grid gap-5 md:grid-cols-2">
-            {bands.map((band, i) => (
-              <motion.article key={band.name} whileHover={{ y: -4 }} className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0d0d0d] p-7 sm:p-9">
-                <span className="absolute right-5 top-2 font-mono text-7xl font-black text-white/[0.035]">0{i + 1}</span>
-                <Users className="mb-12 text-red-500" size={22} />
-                <p className="text-3xl font-black">{band.name}</p>
-                <p className="mt-2 font-mono text-sm text-red-400">START {band.start}</p>
-                <ul className="mt-7 space-y-3 text-sm text-white/55">
-                  {band.members.map((member) => <li key={member} className="border-b border-white/[0.06] pb-3">{member}</li>)}
-                </ul>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative mx-auto max-w-6xl px-5 py-20 sm:px-10 lg:px-16">
-        <SectionTitle eyebrow="Setlist">セットリスト</SectionTitle>
-        <p className="mb-8 max-w-lg text-sm leading-7 text-white/45">事前に曲目を確認したい方はこちらから。曲順は変更になる場合があります。</p>
-        <div>
-          {bands.map((band) => <Setlist key={band.name} band={band} />)}
-        </div>
-      </section>
-
-      <footer className="relative border-t border-white/10 px-5 py-10 text-center text-xs uppercase tracking-[0.22em] text-white/25">
-        © 2026 ABC LIVE
-      </footer>
-    </main>
-  );
-}
+</body>
+</html>
