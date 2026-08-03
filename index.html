@@ -3,13 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ABC LIVE</title>
+<meta name="description" content="2026年10月9日（金）秋葉原ZESTにて Wondy × テルジ。OPEN 19:00 / START 19:30、入場無料＋1ドリンク700円。">
+
+<!-- ============================================
+     OGP / SNSシェア設定
+     ▼ example.com を公開URLに書き換えてください。
+       og:url と og:image は絶対URL（https://〜）が必須です。
+       相対パスだとサムネイルが表示されません。
+     ============================================ -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://example.com/">
+<meta property="og:site_name" content="NERIBAY FRIDAY">
+<meta property="og:title" content="Wondy × テルジ｜NERIBAY FRIDAY">
+<meta property="og:description" content="2026年10月9日（金）秋葉原ZEST。OPEN 19:00 / START 19:30、入場無料＋1ドリンク700円。">
+<meta property="og:image" content="https://example.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Wondy × テルジ 2026年10月9日（金）秋葉原ZEST のライブフライヤー">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg-dark:#0a0603;
   --bg-glow:#3a2414;
   --accent:#f2b25e;
+  /* 以下2色は現在未使用。見出しや第2アクセント用に確保 */
   --accent-deep:#c9843c;
   --cream:#f3efe6;
 }
@@ -20,11 +42,8 @@ body {
     var(--bg-dark);
   color:#f0f0f0; font-family:'M PLUS Rounded 1c',sans-serif; min-height:100vh;
 }
-.header { text-align:center; padding:48px 24px 32px; border-bottom:1px solid #1e1e1e; }
-.header-title { font-family:'M PLUS Rounded 1c',sans-serif; font-weight:900; font-size:clamp(52px,12vw,104px); letter-spacing:0.01em; color:var(--cream); line-height:1; }
-.header-sub { font-size:13px; letter-spacing:0.3em; color:var(--accent); margin-top:14px; text-transform:uppercase; font-weight:700; display:flex; align-items:center; justify-content:center; gap:16px; }
-.header-sub::before, .header-sub::after { content:''; width:32px; height:1px; background:var(--accent); opacity:0.6; }
 
+/* ---------- フライヤー ---------- */
 .flyer-section { max-width:800px; margin:0 auto; padding:48px 24px; border-bottom:1px solid #1a1a1a; }
 .flyer-box {
   width:100%;
@@ -34,48 +53,21 @@ body {
 }
 .flyer-box img { display:block; width:100%; height:auto; }
 
+/* ---------- セクション共通 ---------- */
 .section { max-width:800px; margin:0 auto; padding:48px 24px; border-bottom:1px solid #1a1a1a; }
 .section-label { display:inline-block; color:var(--accent); font-size:17px; font-weight:800; letter-spacing:0.15em; padding-bottom:8px; margin-bottom:24px; border-bottom:2px solid var(--accent); text-transform:uppercase; }
 
-.info-list { list-style:none; border-top:1px solid #222; }
-.info-item { display:grid; grid-template-columns:110px 1fr; border-bottom:1px solid #222; padding:18px 0; gap:16px; }
-.info-key { font-size:16px; letter-spacing:0.15em; color:#777; padding-top:2px; }
-.info-val { font-size:16px; color:#f0f0f0; line-height:1.8; }
-.info-val.tbd { color:#555; font-style:italic; }
-
-.band-schedule { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
-.band-time { font-size:14px; color:#999; }
-.band-time span { color:var(--accent); font-weight:700; margin-right:6px; }
-
-.ticket-detail { display:flex; flex-direction:column; gap:4px; }
-.ticket-row { font-size:16px; color:#f0f0f0; }
-.ticket-row .label { color:#777; font-size:13px; letter-spacing:0.1em; display:inline-block; width:90px; }
-.ticket-note { font-size:14px; color:#888; margin-top:8px; line-height:1.8; }
-
-.venue-links { margin-top:12px; display:flex; flex-direction:column; gap:8px; }
-.venue-link { font-size:14px; color:var(--accent); text-decoration:none; letter-spacing:0.05em; }
-.venue-link:hover { text-decoration:underline; }
-.venue-link.tbd { color:#444; pointer-events:none; font-style:italic; }
-
-.photo-row { display:grid; grid-template-columns:1fr; gap:12px; margin-top:20px; }
-.photo-box {
-  aspect-ratio:4/3;
-  border:1px dashed #2a2a2a;
-  display:flex; align-items:center; justify-content:center;
-  color:#333; font-size:13px; letter-spacing:0.05em;
-}
-
-.notice-box { font-size:15px; color:#555; font-style:italic; line-height:1.8; }
-
+/* ---------- 出演者 ---------- */
 .band-block { margin-bottom:28px; }
 .band-block:last-child { margin-bottom:0; }
 .band-name { font-size:13px; letter-spacing:0.2em; color:var(--accent); margin-bottom:8px; text-transform:uppercase; font-weight:800; }
 .band-members { font-size:16px; color:#f0f0f0; line-height:1.9; }
 .member { display:block; }
 
+/* ---------- セットリスト ---------- */
 .setlist-toggle {
   width:100%; background:none; border:none; border-top:1px solid #222;
-  color:#f0f0f0; font-family:'Noto Sans JP',sans-serif;
+  color:#f0f0f0; font-family:inherit;
   font-size:15px; padding:18px 0; cursor:pointer;
   display:flex; align-items:center; gap:12px; text-align:left;
 }
@@ -93,6 +85,7 @@ body {
 .track-num { font-size:12px; color:#444; width:20px; flex-shrink:0; }
 .track-name { color:#555; font-style:italic; }
 
+/* ---------- フッター ---------- */
 .footer { border-top:1px solid #1a1a1a; padding:32px 24px; text-align:center; font-size:12px; color:#333; letter-spacing:0.15em; }
 </style>
 </head>
